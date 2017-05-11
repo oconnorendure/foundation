@@ -1,0 +1,44 @@
+server:
+  port: ${server.port}
+
+spring:
+  application:
+    name: cloud-config
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: ${config.mysql.uri}
+    password: ${config.mysql.password}
+    username: ${config.mysql.username}
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 300000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,slf4j
+  profiles:
+    active: jdbc
+  output:
+    ansi:
+      enabled: always
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${eureka.uri}/eureka/
+
+security:
+  user:
+    password: db1ab002-1fba-476d-a421-22113355
+logging:
+  pattern:
+    console: "[%clr(%5p)] - %clr(%m){magenta} %n"
+
